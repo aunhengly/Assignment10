@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head><title>vexflow-syn example page</title>
+  <script src="js/vexflow-debug.js"></script>
+  <style type="text/css">
+  #canvasScore {
+    border: 1px solid #8f8f8f;
+    box-shadow: 10px 15px 25px #888888;
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 1200px;
+  }
+  </style>
+  </head>
+  <body><h1>Mary Had a Little Lamb</h1><canvas width="1300" height="360" id="canvasScore"></canvas>
+
+  <script>
+    var canvasWidth       = 1100;
+    var canvasTopMargin   = 0;
+    var canvasLeftMargin  = 20;
+    var staveHeight       = 100;
+    var beatsValue        = 4;
+    var canvas            = document.getElementById("canvasScore")
+    var renderer          = new Vex.Flow.Renderer(canvas,
+    Vex.Flow.Renderer.Backends.CANVAS);
+    var ctxRenderer       = renderer.getContext();
+
+    // This is for the first stave
+    var staveFirst       = new Vex.Flow.Stave(canvasLeftMargin, canvasTopMargin, canvasWidth);
+    staveFirst.addClef("treble").addTimeSignature("4/4").setContext(ctxRenderer).draw();
+
+    // This is for the second stave below the first
+    canvasTopMargin += staveHeight;
+    var staveSecond       = new Vex.Flow.Stave(canvasLeftMargin, canvasTopMargin, canvasWidth);
+    staveSecond.addClef("treble").setContext(ctxRenderer).draw();
+
+    // This is for the third stave
+    canvasTopMargin += staveHeight;
+    var staveThird       = new Vex.Flow.Stave(canvasLeftMargin, canvasTopMargin, canvasWidth);
+    staveThird.addClef("treble").setContext(ctxRenderer).draw();
+
+    // Create the notes for each stave
+    var notesFirst = [
+      new Vex.Flow.StaveNote({ keys: ["b/4"], duration: "q" })
+    ];
+    var notesSecond = [
+    ];
+    var notesThird = [
+    ];
+
+    Vex.Flow.Formatter.FormatAndDraw(ctxRenderer, staveFirst, notesFirst);
+    Vex.Flow.Formatter.FormatAndDraw(ctxRenderer, staveSecond, notesSecond);
+    Vex.Flow.Formatter.FormatAndDraw(ctxRenderer, staveThird, notesThird);
+
+  </script>
+  </body>
+</html>
